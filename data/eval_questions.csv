@@ -1,0 +1,60 @@
+question,correct_chunk_id,correct_answer,category
+what is the challenge associated with choosing the step size in gradient descent?,['chunk_0521'],"If step size is too small, it would slow convergence, the opposite would lead to overshoot and divergence therefore it is crucial to found middle ground.",direct
+what two conditions must be fulfilled by mathematical expression of loss function?,['chunk_0130'],it can be written as average and it can be written as function of the outputs from the neural network.,direct
+What are the two very commonly used loss functions in machine learning?,['chunk_0661'],Squared loss and absolute loss.,direct
+What is overfitting and how is it related to underfitting?,"['chunk_0665', 'chunk_0684']","Overfitting occurs when a model learns the training data too closely, 
+                      including its noise, so it performs well on training data but poorly on unseen data. 
+                      Underfitting is the opposite, the model fails to capture the underlying pattern, 
+                      performing poorly on both training and test data.",multi_chunk_compare
+what is the purpose of regularization in machine learning?,['chunk_0759'],"The main purpose of regularization in machine learning is to prevent overfitting 
+        and improve a model's ability to generalize to new, unseen data",direct
+Differentiate between exhaustive and non-exhaustive cross-validation.,"['chunk_0329', 'chunk_0333']","Exhaustive methods learn and test on all possible ways to divide the original sample
+         into a training set and a validation set whereas Non-exhaustive methods do not compute all possible ways 
+         of splitting the original sample, they act as approximations of the exhaustive approach to save 
+         time and computing power",multi_chunk_compare
+List all the approaches for hyperparameter optimization.,"['chunk_0600', 'chunk_0603', 'chunk_0604', 'chunk_0606', 'chunk_0609', 'chunk_0610', 'chunk_0612']","Grid search, Random Search, Bayesian Optimization, Gradient-based optimization, Evolutionary optimization, Population-based, Early stopping-based",multi_chunk_aggregation
+State the various applications of bias-variance decomposition.,"['chunk_0196', 'chunk_0197', 'chunk_0198', 'chunk_0199', 'chunk_0200']","In regression, In classification, In reinforcement learning, In Monte Carlo methods, In human learning",multi_chunk_aggregation
+Which type of pooling performs better in practice?,['chunk_0271'],Max-pooling,direct
+What are NTMs? Explain in brief.,['chunk_0719'],"Neural Turing machines (NTMs) are a method of extending recurrent neural networks by combining
+        their learning ability with an external memory, allowing the model to store, retrieve, and manipulate information.",direct
+In what year Graves and Schmidhuber published LSTM with full backpropagation?,['chunk_0636'],2005,direct
+What are the two ways by which a Multimodal model can be trained?,['chunk_1049'],from scratch and from fine tuning,direct
+What are hard weights and soft weights?,['chunk_0021'],Hard weights are computed during backword pass and soft weights are computed during forward pass and change during each step.,direct
+What are the two main applications of autoencoders?,['chunk_0074'],dimensionality reduction and information retrieval,direct
+How many women reaserchers were involved in the launch event of GPT-4?,[],NONE - not present in this document corpus,unanswerable
+How does BPE algorithm works?,['chunk_0204'],"BPE operates by iteratively replacing the most common contiguous 
+        sequences of characters in a target text with unused bytes. The iteration ends when no sequences 
+        can be found resulting in a compressed target text.",direct
+Who is Yann Lecun? Why is he famous?,"['chunk_1099', 'chunk_1100']","Yann Lecun is a French-American computer scientist. He is famous for 
+        his work on optical character recognition and computer vision using convolutional neural networks.",multi_chunk_compare
+Who founded LawZero?,['chunk_1121'],Yoshua Bengio,direct
+How did the paper 'Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings' highlighted the bias in word analogies?,[],NONE - not present in this document corpus,unanswerable
+What is one of the main limitations of static word vector space models?,['chunk_1089'],words with multiple meanings are conflated into a single representation.,direct
+What is the exact FLOPs count required to train GPT-4?,[],NONE - not present in this document corpus,unanswerable
+How does AlexNet differ from LeNet?,['chunk_0018'],"AlexNet and LeNet share essentially the same design and algorithm but AlexNet is much larger than LeNet 
+        and was trained on a much larger dataset on much faster hardware",direct
+Which branch of machine learning groups the data that has not been labelled?,['chunk_1074'],Cluster analysis,direct
+What are four major issues to consider in supervised learning?,"['chunk_0861', 'chunk_0863', 'chunk_0864', 'chunk_0866']","Bias–variance tradeoff, Function complexity and amount of training data, Dimensionality of the input space, Noise in the output values",multi_chunk_aggregation
+How is AlexNet better than LeNet?,['chunk_0018'],"The source doesn't frame this as AlexNet being 'better' but it describes differences: AlexNet shares LeNet's basic design but is larger, trained on a much bigger dataset, and used much faster hardware.",leading_question
+What does the term 'supervised' mean in supervied learning?,['chunk_0856'],"Supervised means supervising or training the model to learn new patterns, it refers to a role that of a teacher or a supervisor.",direct
+When did google launch Gemini?,[],NONE - not present in this document corpus,unanswerable
+Describe the core idea of GAN.,['chunk_0375'],"The core idea of GAN is based on indirect training through a discriminator that 
+         can tell how realistic the output seems, which means the generator is not trained to minimize the
+         distance to a specific image, but rather to fool the discriminator. This enables the model to learn in an unsupervised manner",direct
+How did Geoffrey's views in 2023 contradicted his earlier views?,['chunk_0478'],"Hinton previously estimated AGI was 30-50+ years away, but in a March 2023 CBS interview he shifted to saying 
+        general-purpose AI could arrive in under 20 years, comparing its potential impact to the industrial revolution or the advent of electricity.",direct
+What are neurological networks?,[],NONE - not present in this document corpus,unanswerable
+Was the risk of gradient descent getting stuck in a local minimum considered a fatal flaw for training neural networks with backpropagation?,['chunk_0132'],"It was long considered a major drawback, since gradient descent with backpropagation isn't guaranteed to reach the global minimum. However, Yann LeCun and colleagues argued that in many practical problems this isn't actually a significant issue.",direct
+"What happened on October 25, 2019?",['chunk_0164'],Google announced they are effectively applying BERT in google search within the US,direct
+How did google help in the production of GPT?,['chunk_0491'],Google didn't help in the production of GPT directly though GPT is based on the transformer architecture developed by google,leading_question
+List the applications of the neural networks which are used where the order of elements is important,"['chunk_0751', 'chunk_0752']","Machine translation, Robot control, Time series prediction, Speech recognition, Speech synthesis, 
+          Brain–computer interfaces, Time series anomaly detection, Text-to-Video model, Energy forecasting, Rhythm learning, Music composition,
+          Grammar learning, Handwriting recognition, Human action recognition, Protein homology detection,
+          Predicting subcellular localization of proteins, Several prediction tasks in the area of business process management,
+          Prediction in medical care pathways, Predictions of fusion plasma disruptions in reactors (Fusion Recurrent Neural Network (FRNN) code)",ambiguous_aggregation
+"What earlier architectural innovation, introduced by a different research group, does GPT's design build on?",['chunk_0491'],Transformer architecture developed by google introduced in 'Attention is all you need'.,ambiguous
+What are the ethical and societal concerns raised by large language models based on transformer?,['chunk_0511'],"bias, misinformation, and environmental impact.",direct
+What is the purpose of approximate dynamic programming?,['chunk_0797'],The purpose of approximate dynamic programming is for the agent to learn an optimal policy that maximizes the reward function.,ambiguous
+What are some drawbacks of SVM?,['chunk_0934'],"Requires full labeling of input data, avoids estimating probabilities on finite data, only directly applicable for two-class tasks, parameters of a solved model are difficult to interpret",direct
+Does the size of each update taken during optimization actually influence how well the model converges?,['chunk_0521'],"Yes, it matters significantly. Too small a step size slows convergence, while too large a step size can cause overshoot and divergence — finding the right middle ground is crucial.",ambiguous
+Explain the working of the layer proposed by Alston Householder?,['chunk_0274'],Alston Householder proposed ReLU. It effective removes negative values by setting them to zero.,ambiguous
