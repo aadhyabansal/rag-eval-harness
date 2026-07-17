@@ -6,7 +6,7 @@ I built a 28-article Wikipedia corpus on ML concepts, hand-wrote a 40-question t
 
 **TL;DR : the surprising result:** BM25 (plain keyword search) beat dense embeddings on questions phrased to avoid the source's exact wording. Combining both methods into a hybrid retriever made things *worse*, not better, on those same questions. Full breakdown below.
 
-## install
+## Install
 
 ```
 pip install sentence-transformers chromadb rank_bm25 groq pandas matplotlib
@@ -25,12 +25,14 @@ You'll also need a free [Groq API key](https://console.groq.com) for the generat
 
 The whole pipeline lives in `rag_eval_harness.ipynb`. Open it in Colab or Jupyter and run top to bottom:
 
-1. **Fetch + clean the corpus** - pulls 28 ML-concept Wikipedia articles, strips citation clutter, replaces LaTeX formulas with `[FORMULA]` placeholders
-2. **Chunk + embed** - splits into ~1,100 chunks, embeds locally with `all-MiniLM-L6-v2`, stores in Chroma
-3. **Run retrieval checks** - tests embeddings, BM25, and a hybrid (RRF) against the 40-question eval set in `data/eval_questions.csv`
-4. **Generate + judge answers** - feeds retrieved chunks to Llama 3.3 70B (via Groq), then a second LLM call grades each answer
-5. **Charts** - category-level comparison bars + answer-quality breakdown, saved to `charts/`
-
+1. **Fetch + clean the corpus** - pulls 28 ML-concept Wikipedia articles, strips citation clutter, replaces LaTeX formulas with [FORMULA] placeholders
+2. **Chunk + embed** - splits into ~1,100 chunks, embeds locally with all-MiniLM-L6-v2, stores in Chroma
+3. **Build the eval set** - 40 hand-labeled questions across 7 difficulty categories
+4. **Embeddings retrieval + generation + judging** - runs the eval set through dense retrieval, generates answers with Llama 3.3 70B (via Groq), then a second LLM call judges each one
+5. **BM25 retrieval evaluation** - same eval set, keyword-based retrieval instead
+6. **Hybrid retrieval evaluation** - combines both via Reciprocal Rank Fusion
+7. **Compare all three + charts** - category-level comparison bars, saved to charts/
+   
 Retrieval steps run instantly (all local). The generation + judging step is the slow part — ~40 questions × 2 LLM calls each, a couple minutes on Groq's free tier.
 
 If you just want the results without re-running anything, `data/eval_results_full.csv` has the full output already, and the charts are in `charts/`.
@@ -84,6 +86,9 @@ Wherever retrieval found the right chunk, the LLM gave a good answer. Wherever r
 
 *(% = at least one correct chunk retrieved)*
 
+<img width="1365" height="686" alt="image" src="https://github.com/user-attachments/assets/3c30a4ef-3406-40dd-89c3-2c3fbae877ca" />
+
+
 I expected embeddings to win on the `ambiguous` questions — that's the whole point of dense retrieval, understanding meaning instead of just matching words. Instead BM25 crushed it, 50% to 0%. Turns out my "ambiguous" questions still shared enough individual words with the source text (even while avoiding the exact term) for keyword matching to work fine. Meanwhile the embedding model kept grabbing a *neighboring* chunk instead of the actual right one, I checked this directly, and the correct chunk sat right next to ones that did get retrieved. The embedding for that chunk just blended into the general topic vibe of its neighbors instead of standing out for its one specific fact.
 
 ### 3. Hybrid retrieval isn't automatically better but can make things worse
@@ -92,6 +97,8 @@ Lesson: don't assume hybrid = better without checking, it depends on how much yo
 
 ### 4. It fails safely : no real hallucinations
 Every time it got a "WRONG" answer, it was almost always because it honestly said "I don't know based on the given context," not because it made something up. Zero clear hallucinations across all 40 questions. One case flagged by my automated checker as a "possible hallucination" turned out, when I actually read it, to be a totally correct answer — just to a *different* valid fact than the one I'd picked as ground truth. That was my question being underspecified, not the model lying. Also a good reminder that a keyword-based hallucination checker can't tell "wrong" from "right but not what I expected" , you still have to read the actual answers.
+
+<img width="1800" height="750" alt="image" src="https://github.com/user-attachments/assets/b986b6ac-3e11-4886-b185-cf00ad4193ee" />
 
 ### 5. Retrieval budget (`top_k`) caps how much you can find
 For "list all X" style questions, where the answer is scattered across 5-7 chunks, retrieval never grabbed all of them at `top_k=5`, simple math, you can't return more chunks than your budget allows. This is a real, common issue in production RAG: if your retrieval budget is smaller than how spread out the answer is, you'll always come up short no matter how good your retriever is.
